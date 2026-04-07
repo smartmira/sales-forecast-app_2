@@ -55,10 +55,14 @@ fig = px.line(
 
 st.plotly_chart(fig, use_container_width=True)
 
+if filtered_df.empty:
+    st.warning("No data available for this selection")
+    st.stop()
+
 future_dates = pd.date_range(
     start=filtered_df['order_date'].max(),
     end="2027-12-31",
-    freq='M'
+    freq='ME'
 )
 
 future_df = pd.DataFrame({
